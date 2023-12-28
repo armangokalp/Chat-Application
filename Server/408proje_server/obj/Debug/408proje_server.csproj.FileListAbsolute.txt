@@ -1,0 +1,10 @@
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\bin\Debug\408proje_server.exe.config
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\bin\Debug\408proje_server.exe
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\bin\Debug\408proje_server.pdb
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\408proje_server.csproj.AssemblyReference.cache
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\_408proje_server.Form1.resources
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\_408proje_server.Properties.Resources.resources
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\408proje_server.csproj.GenerateResource.cache
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\408proje_server.csproj.CoreCompileInputs.cache
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\408proje_server.exe
+C:\Users\123\Downloads\armangokalp_Gokalp_Arman (2)\armangokalp_Gokalp_Arman\Server\408proje_server\obj\Debug\408proje_server.pdb
