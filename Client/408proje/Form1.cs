@@ -30,26 +30,14 @@ namespace _408proje
 
             if (socket != null && socket.Connected)
             {
-                if (!ifconnected)
-                {
-                    byte[] subscribeMessage = Encoding.Default.GetBytes("SUBSCRIBE//IF100//" + ifName);
-                    socket.Send(subscribeMessage);
-                    ifconnected = true;
-                    buttonIF.Text = "Unsubscribe IF100";
-                    buttonIF.ForeColor = Color.Red;
-                    buttonSendIF100.Enabled = true;
-                    textCOnnectionList.AppendText("IF100\n");
-                }
-                else
-                {
-                    byte[] unsubscribeMessage = Encoding.Default.GetBytes("UNSUBSCRIBE//IF100//" + ifName);
-                    socket.Send(unsubscribeMessage);
-                    ifconnected = false;
-                    buttonIF.Text = "Subscribe IF100";
-                    buttonIF.ForeColor = Color.Green;
-                    buttonSendIF100.Enabled = false;
-                    removeString("IF100\n");
-                }
+                string message = !ifconnected ? "SUBSCRIBE//IF100//" + ifName : "UNSUBSCRIBE//IF100//" + ifName;
+                byte[] messageBytes = Encoding.Default.GetBytes(message);
+                socket.Send(messageBytes);
+                ifconnected = !ifconnected;
+                buttonIF.Text = ifconnected ? "Unsubscribe IF100" : "Subscribe IF100";
+                buttonIF.ForeColor = ifconnected ? Color.Red : Color.Green;
+                buttonSendIF100.Enabled = ifconnected;
+                if (ifconnected)    textCOnnectionList.AppendText("IF100\n");   else removeString("IF100\n");
             }
         }
 
@@ -61,26 +49,14 @@ namespace _408proje
 
             if (connected)
             {
-                if (!spsconnected)
-                {
-                    byte[] subscribeMessage = Encoding.Default.GetBytes("SUBSCRIBE//SPS101//" + spsName);
-                    socket.Send(subscribeMessage);
-                    spsconnected = true;
-                    buttonSPS.Text = "Unsubscribe SPS101";
-                    buttonSPS.ForeColor = Color.Red;
-                    buttonSendSps101.Enabled = true;
-                    textCOnnectionList.AppendText("SPS101\n");
-                }
-                else
-                {
-                    byte[] unsubscribeMessage = Encoding.Default.GetBytes("UNSUBSCRIBE//SPS101//" + spsName);
-                    socket.Send(unsubscribeMessage);
-                    spsconnected = false;
-                    buttonSPS.Text = "Subscribe SPS101";
-                    buttonSPS.ForeColor = Color.Green;
-                    buttonSendSps101.Enabled = false;
-                    removeString("SPS101\n");
-                }
+                string message_content = !spsconnected ? "SUBSCRIBE//SPS101//" + spsName : "UNSUBSCRIBE//SPS101//" + spsName;
+                byte[] message = Encoding.Default.GetBytes(message_content);
+                socket.Send(message);
+                spsconnected = !spsconnected;
+                buttonSPS.Text = spsconnected ? "Unsubscribe SPS101" : "Subscribe SPS101";
+                buttonSPS.ForeColor = spsconnected ? Color.Red : Color.Green;
+                buttonSendSps101.Enabled = spsconnected;
+                if (spsconnected) textCOnnectionList.AppendText("SPS101\n"); else removeString("SPS101\n");
             }
         }
 
@@ -276,6 +252,10 @@ namespace _408proje
                         connected = true;
                         spsName = textName.Text;
                         ifName = textName.Text;
+
+                        string connectionStatus = connected ? "connected to" : "disconnected from";
+                        string clientMessage = $"{spsName} has {connectionStatus} the server.";
+                        socket.Send(Encoding.Default.GetBytes("//" + clientMessage));
 
                         UpdateUIOnConnection();
                     }
