@@ -21,7 +21,6 @@ namespace _408proje_server
 
         bool terminating = false;
         bool listening = false;
-        Dictionary<Socket, string> KeyValuePair;
 
         public Form1()
         {
@@ -105,7 +104,7 @@ namespace _408proje_server
         }
 
 
-        public struct obje
+        public struct Client
         {
             public string name;
             public Socket socket;
@@ -140,7 +139,7 @@ namespace _408proje_server
             }
         }
 
-
+        /*
         private void Accept()
         {
             while (listening)
@@ -159,7 +158,7 @@ namespace _408proje_server
                         string clientName = Encoding.Default.GetString(buffer, 0, received);
 
 
-                        if (clientName.Substring(0, 5) == "SPS//")
+                        if (clientName.Substring(0, 19) == "SUBSCRIBE//SPS101//")
                         {
                             
                             
@@ -183,7 +182,7 @@ namespace _408proje_server
 
                             SPSclientSockets.Add(newClient, clientName);
                         }
-                        else if (clientName.Substring(0, 5) == "IFF//")
+                        else if (clientName.Substring(0, 18) == "SUBSCRIBE//IF100//")
                         {
                             
                             clientName = clientName.Substring(5, clientName.Length - 5);
@@ -222,8 +221,121 @@ namespace _408proje_server
             }
         }
 
+        */
+
+        private void Accept()
+        {
+            while (listening)
+            {
+                try
+                {
+                    Client client = new Client();
+                    client.if100 = false;
+                    client.sps101 = false;
+                    Socket newClient = serverSocket.Accept();
+                    client.socket = newClient;
+                    Thread clientThread = new Thread(() => HandleClient(newClient, client));
+                    clientThread.Start();
+                }
+                catch
+                {
+                    if (terminating)
+                    {
+                        listening = false;
+                    }
+                    else
+                    {
+                        text_all_actions.AppendText("The socket stopped working.\n");
+                    }
+                }
+            }
+        }
+
+        private void HandleClient(Socket newClient, Client client)
+        {
+            bool connected = true;
+            string clientName = null;
+
+            while (connected && !terminating)
+            {
+                try
+                {
+                    Byte[] buffer = new Byte[64];
+                    int received = newClient.Receive(buffer);
+                    if (received > 0)
+                    {
+                        string incomingMessage = Encoding.Default.GetString(buffer);
+                        incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
+                        clientName = Encoding.Default.GetString(buffer, 0, received);
+
+                        if (incomingMessage.StartsWith("SUBSCRIBE//SPS101//"))
+                        {
 
 
+                            clientName = clientName.Substring(5, clientName.Length - 5);
+                            client.name = clientName;
+                            text_all_actions.AppendText(clientName + " is connected to SPS101.\n");
+
+
+                            client.sps101 = true;
+
+                            //textSPS101_connected_users.AppendText(clientName + "\n");
+                            Thread receiveThread = new Thread(() => Receive(client));
+                            receiveThread.Start();
+
+                            string welcomeMessage = clientName + " has joined to the server SPS101.";
+                            byte[] welcomeBuffer = Encoding.Default.GetBytes(welcomeMessage);
+                            newClient.Send(welcomeBuffer);
+
+
+                            Echo(client.name, SPSclientSockets, welcomeMessage);
+
+                            SPSclientSockets.Add(newClient, clientName);
+                        }
+                        else if (incomingMessage.StartsWith("SUBSCRIBE//IF100//"))
+                        {
+
+                            clientName = clientName.Substring(5, clientName.Length - 5);
+                            client.name = clientName;
+                            text_all_actions.AppendText(clientName + " is connected to IF100.\n");
+                            client.if100 = true;
+                            //textIF100_connected_users.AppendText(clientName + "\n");
+                            Thread receiveThread = new Thread(() => Receive(client));
+                            receiveThread.Start();
+
+                            string welcomeMessage = clientName + " has joined to the server IF100.";
+                            byte[] welcomeBuffer = Encoding.Default.GetBytes(welcomeMessage);
+                            newClient.Send(welcomeBuffer);
+
+                            Echo(client.name, IFclientSockets, welcomeMessage);
+
+                            IFclientSockets.Add(newClient, clientName);
+                        }
+                        else if (incomingMessage.StartsWith("USUBSCRIBE//SPS101//"))
+                        {
+                            // Handle unsubscription logic
+                        }
+                        else if (incomingMessage.StartsWith("UNSUBSCRIBE//IF100//"))
+                        {
+
+                        }
+                        else
+                        {
+                            
+                        }
+                    }
+                    else
+                    {
+                        throw new SocketException();
+                    }
+                }
+                catch
+                {
+                    // Handle disconnection and cleanup
+                    connected = false;
+                }
+            }
+        }
 
         public void Echo(string username, Dictionary<Socket , string> userConnections, string message)
         {
@@ -238,7 +350,7 @@ namespace _408proje_server
 
         }
         
-        private void Receive(obje thisClient)
+        private void Receive(Client thisClient)
         {
             bool connected = true;
 

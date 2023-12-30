@@ -45,6 +45,7 @@ namespace _408proje
             this.textSendIF = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textPort = new System.Windows.Forms.TextBox();
+            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -67,7 +68,7 @@ namespace _408proje
             // 
             // textName
             // 
-            this.textName.Location = new System.Drawing.Point(169, 57);
+            this.textName.Location = new System.Drawing.Point(169, 64);
             this.textName.Name = "textName";
             this.textName.Size = new System.Drawing.Size(148, 26);
             this.textName.TabIndex = 2;
@@ -75,7 +76,7 @@ namespace _408proje
             // 
             // textIP
             // 
-            this.textIP.Location = new System.Drawing.Point(169, 106);
+            this.textIP.Location = new System.Drawing.Point(169, 110);
             this.textIP.Name = "textIP";
             this.textIP.Size = new System.Drawing.Size(148, 26);
             this.textIP.TabIndex = 3;
@@ -84,23 +85,25 @@ namespace _408proje
             // 
             // buttonSPS
             // 
-            this.buttonSPS.ForeColor = System.Drawing.Color.Red;
+            this.buttonSPS.Enabled = false;
+            this.buttonSPS.ForeColor = System.Drawing.Color.Green;
             this.buttonSPS.Location = new System.Drawing.Point(483, 22);
             this.buttonSPS.Name = "buttonSPS";
             this.buttonSPS.Size = new System.Drawing.Size(442, 35);
             this.buttonSPS.TabIndex = 4;
-            this.buttonSPS.Text = "SPS101";
+            this.buttonSPS.Text = "Subscribe SPS101";
             this.buttonSPS.UseVisualStyleBackColor = true;
             this.buttonSPS.Click += new System.EventHandler(this.buttonSPS_Click);
             // 
             // buttonIF
             // 
-            this.buttonIF.ForeColor = System.Drawing.Color.Red;
+            this.buttonIF.Enabled = false;
+            this.buttonIF.ForeColor = System.Drawing.Color.Green;
             this.buttonIF.Location = new System.Drawing.Point(957, 21);
             this.buttonIF.Name = "buttonIF";
             this.buttonIF.Size = new System.Drawing.Size(457, 37);
             this.buttonIF.TabIndex = 7;
-            this.buttonIF.Text = "IF100";
+            this.buttonIF.Text = "Subscribe IF100";
             this.buttonIF.UseVisualStyleBackColor = true;
             this.buttonIF.Click += new System.EventHandler(this.button2_Click);
             // 
@@ -191,18 +194,30 @@ namespace _408proje
             // 
             // textPort
             // 
-            this.textPort.Location = new System.Drawing.Point(169, 156);
+            this.textPort.Location = new System.Drawing.Point(169, 162);
             this.textPort.Name = "textPort";
             this.textPort.Size = new System.Drawing.Size(148, 26);
             this.textPort.TabIndex = 17;
             this.textPort.Text = "1";
             this.textPort.TextChanged += new System.EventHandler(this.textPort_TextChanged);
             // 
+            // button1
+            // 
+            this.button1.ForeColor = System.Drawing.Color.Green;
+            this.button1.Location = new System.Drawing.Point(61, 219);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(256, 33);
+            this.button1.TabIndex = 18;
+            this.button1.Text = "Connect";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1473, 625);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.textPort);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textSendIF);
@@ -244,6 +259,7 @@ namespace _408proje
         private System.Windows.Forms.RichTextBox textSendIF;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textPort;
+        private System.Windows.Forms.Button button1;
     }
 }
 

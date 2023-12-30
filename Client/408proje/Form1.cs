@@ -1,13 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
 using System.Net.Sockets;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace _408proje
@@ -21,8 +16,7 @@ namespace _408proje
         string spsName = "", ifName = "";
 
 
-        Socket spsSocket;
-        Socket ifSocket;
+        Socket socket;
         public Form1()
         {
             Control.CheckForIllegalCrossThreadCalls = false;
@@ -33,152 +27,63 @@ namespace _408proje
         private void button2_Click(object sender, EventArgs e)
         {
             string IP = textIP.Text;
-            int portNum;
 
-            if (!ifconnected)
+            if (socket != null && socket.Connected)
             {
-                if (Int32.TryParse(textPort.Text, out portNum))
+                if (!ifconnected)
                 {
-                    try
-                    {
-                        ifSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                        ifSocket.Connect(IP, portNum);
-
-                        ifconnected = true;
-
-                        textINPUTif100.AppendText("Connected to IF100 channel as " + textName.Text + "!\n");
-                        disableLogin();
-                        buttonIF.ForeColor = Color.Green;
-                        buttonSendIF100.Enabled = true;
-                        textCOnnectionList.AppendText("IF100\n");
-
-                        Thread receiveIfThread = new Thread(ReceiveIf);
-                        receiveIfThread.Start();
-                        ifName = textName.Text;
-                        byte[] nameBuffer = Encoding.Default.GetBytes("IFF//" + ifName);
-                        ifSocket.Send(nameBuffer);
-                    }
-                    catch
-                    {
-                        textINPUTif100.AppendText("Could not connect to the server!\n");
-                        ifSocket = null;
-                    }
+                    byte[] subscribeMessage = Encoding.Default.GetBytes("SUBSCRIBE//IF100//" + ifName);
+                    socket.Send(subscribeMessage);
+                    ifconnected = true;
+                    buttonIF.Text = "Unsubscribe IF100";
+                    buttonIF.ForeColor = Color.Red;
+                    buttonSendIF100.Enabled = true;
+                    textCOnnectionList.AppendText("IF100\n");
                 }
                 else
                 {
-                    textINPUTif100.AppendText("Check the port\n");
-                }
-            }
-            else
-            {
-                try
-                {
-                    if (ifSocket != null && ifSocket.Connected)
-                    {
-                        byte[] disconnectMessage = Encoding.Default.GetBytes("Client " + textName.Text + " is disconnected from IF100.");
-                        ifSocket.Send(disconnectMessage);
-
-                        ifSocket.Shutdown(SocketShutdown.Both);
-                        ifSocket.Close();
-                        textINPUTif100.AppendText("Disconnected from the IF100 Channel!\n");
-                    }
-                    else
-                    {
-                        textINPUTif100.AppendText("Socket is not connected.\n");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    textINPUTif100.AppendText("Error during disconnection: " + ex.Message + "\n");
-                }
-                finally
-                {
+                    byte[] unsubscribeMessage = Encoding.Default.GetBytes("UNSUBSCRIBE//IF100//" + ifName);
+                    socket.Send(unsubscribeMessage);
                     ifconnected = false;
-                    buttonIF.ForeColor = Color.Red;
+                    buttonIF.Text = "Subscribe IF100";
+                    buttonIF.ForeColor = Color.Green;
                     buttonSendIF100.Enabled = false;
                     removeString("IF100\n");
-                    ifSocket = null;
                 }
             }
         }
 
 
-
-
-        private void richTextBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
 
         private void buttonSPS_Click(object sender, EventArgs e)
         {
             string IP = textIP.Text;
-            int portNum;
 
-            if (!spsconnected)
+            if (connected)
             {
-                if (Int32.TryParse(textPort.Text, out portNum))
+                if (!spsconnected)
                 {
-                    try
-                    {
-                        spsSocket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-                        spsSocket.Connect(IP, portNum);
-
-                        spsconnected = true;
-                        textINPUTsps101.AppendText("Connected to the SPS101 Channel as " + textName.Text + "!\n");
-                        disableLogin();
-                        textCOnnectionList.AppendText("SPS101\n");
-                        buttonSPS.ForeColor = Color.Green;
-                        buttonSendSps101.Enabled = true;
-
-                        Thread receiveSpsThread = new Thread(ReceiveSps);
-                        receiveSpsThread.Start();
-                        spsName = textName.Text;
-                        byte[] nameBuffer = Encoding.Default.GetBytes("SPS//" + spsName);
-                        spsSocket.Send(nameBuffer);
-                    }
-                    catch
-                    {
-                        textINPUTsps101.AppendText("Could not connect to the server!\n");
-                    }
+                    byte[] subscribeMessage = Encoding.Default.GetBytes("SUBSCRIBE//SPS101//" + spsName);
+                    socket.Send(subscribeMessage);
+                    spsconnected = true;
+                    buttonSPS.Text = "Unsubscribe SPS101";
+                    buttonSPS.ForeColor = Color.Red;
+                    buttonSendSps101.Enabled = true;
+                    textCOnnectionList.AppendText("SPS101\n");
                 }
                 else
                 {
-                    textINPUTsps101.AppendText("Check the port\n");
-                }
-            }
-            else
-            {
-                try
-                {
-                    if (spsSocket != null && spsSocket.Connected)
-                    {
-                        byte[] disconnectMessage = Encoding.Default.GetBytes("Client " + textName.Text + " is disconnected from SPS101.");
-                        spsSocket.Send(disconnectMessage);
-
-                        spsSocket.Shutdown(SocketShutdown.Both);
-                        spsSocket.Close();
-                        textINPUTsps101.AppendText("Disconnected from the SPS101 Channel!\n");
-                    }
-                    else
-                    {
-                        textINPUTsps101.AppendText("Socket is not connected.\n");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    textINPUTsps101.AppendText("Error during disconnection: " + ex.Message + "\n");
-                }
-                finally
-                {
+                    byte[] unsubscribeMessage = Encoding.Default.GetBytes("UNSUBSCRIBE//SPS101//" + spsName);
+                    socket.Send(unsubscribeMessage);
                     spsconnected = false;
-                    buttonSPS.ForeColor = Color.Red;
+                    buttonSPS.Text = "Subscribe SPS101";
+                    buttonSPS.ForeColor = Color.Green;
                     buttonSendSps101.Enabled = false;
                     removeString("SPS101\n");
-
                 }
             }
         }
+
 
 
         private void removeString(string input)
@@ -197,14 +102,9 @@ namespace _408proje
             spsconnected = false;
             ifconnected = false;
 
-            if (spsSocket != null && spsSocket.Connected)
+            if (socket != null && socket.Connected)
             {
-                spsSocket.Close();
-            }
-
-            if (ifSocket != null && ifSocket.Connected)
-            {
-                ifSocket.Close();
+                socket.Close();
             }
 
             Environment.Exit(0);
@@ -257,13 +157,13 @@ namespace _408proje
             {
                 textINPUTsps101.AppendText(userName + ": " + textSendSps101.Text + "\n");
                 Byte[] buffer = Encoding.Default.GetBytes("Client " + userName + " to Channel SPS101: " + message);
-                spsSocket.Send(buffer);
+                socket.Send(buffer);
                 textSendSps101.Clear();
             }
             else if (message.Length > 128)
             {
-                textINPUTsps101.AppendText("Message is too long\n");
                 textSendSps101.ForeColor = Color.Red;
+                textINPUTsps101.AppendText("Message is too long\n");
             }
         }
 
@@ -276,13 +176,13 @@ namespace _408proje
             {
                 textINPUTif100.AppendText(userName + ": " + textSendIF.Text + "\n");
                 Byte[] buffer = Encoding.Default.GetBytes("Client " + userName + " to Channel IF100: " + message);
-                ifSocket.Send(buffer);
+                socket.Send(buffer);
                 textSendIF.Clear();
             }
             else if (message.Length > 128)
             {
-                textINPUTif100.AppendText("Message is too long\n");
                 textSendIF.ForeColor = Color.Red;
+                textINPUTif100.AppendText("Message is too long\n");
             }
         }
 
@@ -302,12 +202,12 @@ namespace _408proje
                 try
                 {
                     Byte[] buffer = new Byte[64];
-                    int received = spsSocket.Receive(buffer);
+                    int received = socket.Receive(buffer);
                     if (received > 0)
                     {
                         string incomingMessage = Encoding.Default.GetString(buffer);
                         incomingMessage = incomingMessage.Substring(0, incomingMessage.IndexOf("\0"));
-                        textINPUTsps101.AppendText(incomingMessage + "\n"); //server
+                        textINPUTsps101.AppendText(incomingMessage + "\n");
                     }
                     else
                     {
@@ -316,11 +216,13 @@ namespace _408proje
                 }
                 catch (SocketException)
                 {
-                    if (spsSocket != null)
+                    if (socket != null)
                     {
-                        spsSocket.Close();
+                        socket.Close();
                     }
                     spsconnected = false;
+
+                    DisconnectFromServer();
                 }
             }
         }
@@ -332,7 +234,7 @@ namespace _408proje
                 try
                 {
                     Byte[] buffer = new Byte[64];
-                    int received = ifSocket.Receive(buffer);
+                    int received = socket.Receive(buffer);
 
                     if (received > 0)
                     {
@@ -347,13 +249,87 @@ namespace _408proje
                 }
                 catch (SocketException)
                 {
-                    if (ifSocket != null)
+                    if (socket != null)
                     {
-                        ifSocket.Close();
+                        socket.Close();
                     }
                     ifconnected = false;
+
+                    DisconnectFromServer();
                 }
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            string IP = textIP.Text;
+            int portNum;
+
+            if (!connected)
+            {
+                if (Int32.TryParse(textPort.Text, out portNum))
+                {
+                    try
+                    {
+                        socket = new Socket(AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
+                        socket.Connect(IP, portNum);
+                        connected = true;
+                        spsName = textName.Text;
+                        ifName = textName.Text;
+
+                        UpdateUIOnConnection();
+                    }
+                    catch
+                    {
+                        textINPUTsps101.AppendText("Could not connect to the server!\n");   textINPUTif100.AppendText("Could not connect to the server!\n");
+                    }
+                }
+                else
+                {
+                    textINPUTsps101.AppendText("Check the port\n"); textINPUTif100.AppendText("Check the port\n");
+                }
+            }
+            else
+            {
+                DisconnectFromServer();
+            }
+        }
+
+        private void UpdateUIOnConnection()
+        {
+            button1.Text = connected ? "Disconnect" : "Connect";
+            button1.ForeColor = connected ? Color.Red : Color.Green;
+            textName.Enabled = !connected;
+            textIP.Enabled = !connected;
+            textPort.Enabled = !connected;
+            buttonSPS.Enabled = connected;
+            buttonIF.Enabled = connected;
+        }
+
+        private void DisconnectFromServer()
+        {
+            if (socket != null && socket.Connected)
+            {
+                socket.Shutdown(SocketShutdown.Both);
+                socket.Close();
+            }
+
+            disconnectUI();
+
+            UpdateUIOnConnection();
+        }
+
+
+        void disconnectUI()
+        {
+            textCOnnectionList.Clear();
+            connected = false;
+            spsconnected = false;
+            ifconnected = false;
+            buttonSPS.Text = "Subscribe SPS101";
+            buttonSPS.ForeColor = Color.Green;
+            buttonIF.Text = "Subscribe IF100";
+            buttonIF.ForeColor = Color.Green;
         }
 
         public void StartReceiving()
@@ -370,44 +346,6 @@ namespace _408proje
                 receiveIfThread.Start();
             }
         }
-
-
-        /*  private void DisconnectFromServer(Socket socket, string channel)
-          {
-              try
-              {
-                  if (socket.Connected)
-                  {
-                      byte[] disconnectMessage = Encoding.Default.GetBytes("DISCONNECT//" + channel);
-                      socket.Send(disconnectMessage);
-
-                      socket.Shutdown(SocketShutdown.Both);
-                      socket.Close();
-
-
-                      if (channel == "SPS101")
-                      {
-                          spsconnected = false;
-                      }
-                      else if (channel == "IF100")
-                      {
-                          ifconnected = false;
-                      }
-
-                      textCOnnectionList.AppendText("Disconnected from " + channel + " channel!\n");
-                  }
-                  else
-                  {
-                      textCOnnectionList.AppendText("Connection is already closed.\n");
-                  }
-              }
-              catch (Exception ex)
-              {
-                  textCOnnectionList.AppendText("Error while disconnecting: " + ex.Message + "\n");
-              }
-          }*/
-
-
 
 
     }
