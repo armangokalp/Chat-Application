@@ -2,6 +2,12 @@
 
 DiSUcord is a messaging networking application that emulates the basic functionalities of Discord. This project is divided into two main modules: the Server module, which manages messages and channels, and the Client module, which allows users to subscribe to channels, send messages, and view messages in the subscribed channels.
 
+## Requirements
+
+To run this application, you will need:
+- Visual Studio (2019 or later)
+- .NET Framework 6
+
 ## Features
 
 - **Server Module**: Manages client connections, channels, and message multicasting.
@@ -34,3 +40,12 @@ DiSUcord is a messaging networking application that emulates the basic functiona
 - **Client** allows setting server IP and port, unique username entry, and handles disconnections gracefully.
 - **GUIs** reflect all necessary details for server-client interactions and channel statuses.
 - **Connections** and message transfers use TCP sockets.
+
+## Architecture and Technologies
+
+- **Programming Language**: C#.
+- **Framework**: .NET Windows Forms.
+- **Networking**: TCP Sockets for reliable communication.
+- **Concurrency**: Multithreading to manage multiple client connections.
+- **Design Pattern**: Client-Server architecture for network communication.
+- **User Interface**: GUIs for both the server and the client for interaction and monitoring.
