@@ -45,73 +45,76 @@ namespace _408proje
             this.textSendIF = new System.Windows.Forms.RichTextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.textPort = new System.Windows.Forms.TextBox();
-            this.button1 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(57, 64);
+            this.label1.Location = new System.Drawing.Point(38, 42);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(51, 20);
+            this.label1.Size = new System.Drawing.Size(35, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Name";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(56, 113);
+            this.label2.Location = new System.Drawing.Point(37, 73);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(24, 20);
+            this.label2.Size = new System.Drawing.Size(17, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "IP";
             // 
             // textName
             // 
-            this.textName.Location = new System.Drawing.Point(169, 64);
+            this.textName.Location = new System.Drawing.Point(113, 37);
+            this.textName.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textName.Name = "textName";
-            this.textName.Size = new System.Drawing.Size(148, 26);
+            this.textName.Size = new System.Drawing.Size(100, 20);
             this.textName.TabIndex = 2;
             this.textName.TextChanged += new System.EventHandler(this.textName_TextChanged);
             // 
             // textIP
             // 
-            this.textIP.Location = new System.Drawing.Point(169, 110);
+            this.textIP.Location = new System.Drawing.Point(113, 69);
+            this.textIP.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textIP.Name = "textIP";
-            this.textIP.Size = new System.Drawing.Size(148, 26);
+            this.textIP.Size = new System.Drawing.Size(100, 20);
             this.textIP.TabIndex = 3;
-            this.textIP.Text = "192.168.0.109";
             this.textIP.TextChanged += new System.EventHandler(this.textIP_TextChanged);
             // 
             // buttonSPS
             // 
-            this.buttonSPS.Enabled = false;
-            this.buttonSPS.ForeColor = System.Drawing.Color.Green;
-            this.buttonSPS.Location = new System.Drawing.Point(483, 22);
+            this.buttonSPS.ForeColor = System.Drawing.Color.Red;
+            this.buttonSPS.Location = new System.Drawing.Point(322, 14);
+            this.buttonSPS.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSPS.Name = "buttonSPS";
-            this.buttonSPS.Size = new System.Drawing.Size(442, 35);
+            this.buttonSPS.Size = new System.Drawing.Size(295, 23);
             this.buttonSPS.TabIndex = 4;
-            this.buttonSPS.Text = "Subscribe SPS101";
+            this.buttonSPS.Text = "SPS101";
             this.buttonSPS.UseVisualStyleBackColor = true;
             this.buttonSPS.Click += new System.EventHandler(this.buttonSPS_Click);
             // 
             // buttonIF
             // 
-            this.buttonIF.Enabled = false;
-            this.buttonIF.ForeColor = System.Drawing.Color.Green;
-            this.buttonIF.Location = new System.Drawing.Point(957, 21);
+            this.buttonIF.ForeColor = System.Drawing.Color.Red;
+            this.buttonIF.Location = new System.Drawing.Point(638, 14);
+            this.buttonIF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonIF.Name = "buttonIF";
-            this.buttonIF.Size = new System.Drawing.Size(457, 37);
+            this.buttonIF.Size = new System.Drawing.Size(305, 24);
             this.buttonIF.TabIndex = 7;
-            this.buttonIF.Text = "Subscribe IF100";
+            this.buttonIF.Text = "IF100";
             this.buttonIF.UseVisualStyleBackColor = true;
             this.buttonIF.Click += new System.EventHandler(this.button2_Click);
             // 
             // textCOnnectionList
             // 
-            this.textCOnnectionList.Location = new System.Drawing.Point(139, 349);
+            this.textCOnnectionList.Location = new System.Drawing.Point(93, 227);
+            this.textCOnnectionList.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textCOnnectionList.Name = "textCOnnectionList";
-            this.textCOnnectionList.Size = new System.Drawing.Size(213, 203);
+            this.textCOnnectionList.Size = new System.Drawing.Size(143, 133);
             this.textCOnnectionList.TabIndex = 8;
             this.textCOnnectionList.Text = "";
             this.textCOnnectionList.TextChanged += new System.EventHandler(this.textCOnnectionList_TextChanged);
@@ -119,26 +122,29 @@ namespace _408proje
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(165, 304);
+            this.label3.Location = new System.Drawing.Point(110, 198);
+            this.label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(158, 20);
+            this.label3.Size = new System.Drawing.Size(106, 13);
             this.label3.TabIndex = 9;
             this.label3.Text = "Connected Channels";
             // 
             // textINPUTsps101
             // 
-            this.textINPUTsps101.Location = new System.Drawing.Point(483, 87);
+            this.textINPUTsps101.Location = new System.Drawing.Point(322, 57);
+            this.textINPUTsps101.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textINPUTsps101.Name = "textINPUTsps101";
-            this.textINPUTsps101.Size = new System.Drawing.Size(442, 405);
+            this.textINPUTsps101.Size = new System.Drawing.Size(296, 265);
             this.textINPUTsps101.TabIndex = 10;
             this.textINPUTsps101.Text = "";
             this.textINPUTsps101.TextChanged += new System.EventHandler(this.textINPUTsps101_TextChanged);
             // 
             // textINPUTif100
             // 
-            this.textINPUTif100.Location = new System.Drawing.Point(957, 87);
+            this.textINPUTif100.Location = new System.Drawing.Point(638, 57);
+            this.textINPUTif100.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textINPUTif100.Name = "textINPUTif100";
-            this.textINPUTif100.Size = new System.Drawing.Size(457, 405);
+            this.textINPUTif100.Size = new System.Drawing.Size(306, 265);
             this.textINPUTif100.TabIndex = 11;
             this.textINPUTif100.Text = "";
             this.textINPUTif100.TextChanged += new System.EventHandler(this.textINPUTif100_TextChanged);
@@ -146,9 +152,10 @@ namespace _408proje
             // buttonSendSps101
             // 
             this.buttonSendSps101.Enabled = false;
-            this.buttonSendSps101.Location = new System.Drawing.Point(483, 498);
+            this.buttonSendSps101.Location = new System.Drawing.Point(322, 324);
+            this.buttonSendSps101.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSendSps101.Name = "buttonSendSps101";
-            this.buttonSendSps101.Size = new System.Drawing.Size(143, 104);
+            this.buttonSendSps101.Size = new System.Drawing.Size(95, 68);
             this.buttonSendSps101.TabIndex = 12;
             this.buttonSendSps101.Text = "Send to SPS101";
             this.buttonSendSps101.UseVisualStyleBackColor = true;
@@ -157,9 +164,10 @@ namespace _408proje
             // buttonSendIF100
             // 
             this.buttonSendIF100.Enabled = false;
-            this.buttonSendIF100.Location = new System.Drawing.Point(957, 498);
+            this.buttonSendIF100.Location = new System.Drawing.Point(638, 324);
+            this.buttonSendIF100.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.buttonSendIF100.Name = "buttonSendIF100";
-            this.buttonSendIF100.Size = new System.Drawing.Size(158, 104);
+            this.buttonSendIF100.Size = new System.Drawing.Size(105, 68);
             this.buttonSendIF100.TabIndex = 13;
             this.buttonSendIF100.Text = "Send to IF100";
             this.buttonSendIF100.UseVisualStyleBackColor = true;
@@ -167,18 +175,20 @@ namespace _408proje
             // 
             // textSendSps101
             // 
-            this.textSendSps101.Location = new System.Drawing.Point(632, 499);
+            this.textSendSps101.Location = new System.Drawing.Point(421, 324);
+            this.textSendSps101.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textSendSps101.Name = "textSendSps101";
-            this.textSendSps101.Size = new System.Drawing.Size(293, 103);
+            this.textSendSps101.Size = new System.Drawing.Size(197, 68);
             this.textSendSps101.TabIndex = 14;
             this.textSendSps101.Text = "";
             this.textSendSps101.TextChanged += new System.EventHandler(this.textSendSps101_TextChanged);
             // 
             // textSendIF
             // 
-            this.textSendIF.Location = new System.Drawing.Point(1121, 498);
+            this.textSendIF.Location = new System.Drawing.Point(747, 324);
+            this.textSendIF.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textSendIF.Name = "textSendIF";
-            this.textSendIF.Size = new System.Drawing.Size(293, 104);
+            this.textSendIF.Size = new System.Drawing.Size(197, 69);
             this.textSendIF.TabIndex = 15;
             this.textSendIF.Text = "";
             this.textSendIF.TextChanged += new System.EventHandler(this.textSendIF_TextChanged);
@@ -186,38 +196,27 @@ namespace _408proje
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(56, 162);
+            this.label4.Location = new System.Drawing.Point(37, 105);
+            this.label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(38, 20);
+            this.label4.Size = new System.Drawing.Size(26, 13);
             this.label4.TabIndex = 16;
             this.label4.Text = "Port";
             // 
             // textPort
             // 
-            this.textPort.Location = new System.Drawing.Point(169, 162);
+            this.textPort.Location = new System.Drawing.Point(113, 101);
+            this.textPort.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.textPort.Name = "textPort";
-            this.textPort.Size = new System.Drawing.Size(148, 26);
+            this.textPort.Size = new System.Drawing.Size(100, 20);
             this.textPort.TabIndex = 17;
-            this.textPort.Text = "1";
             this.textPort.TextChanged += new System.EventHandler(this.textPort_TextChanged);
-            // 
-            // button1
-            // 
-            this.button1.ForeColor = System.Drawing.Color.Green;
-            this.button1.Location = new System.Drawing.Point(61, 219);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(256, 33);
-            this.button1.TabIndex = 18;
-            this.button1.Text = "Connect";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1473, 625);
-            this.Controls.Add(this.button1);
+            this.ClientSize = new System.Drawing.Size(982, 406);
             this.Controls.Add(this.textPort);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.textSendIF);
@@ -234,8 +233,10 @@ namespace _408proje
             this.Controls.Add(this.textName);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -259,7 +260,6 @@ namespace _408proje
         private System.Windows.Forms.RichTextBox textSendIF;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox textPort;
-        private System.Windows.Forms.Button button1;
     }
 }
 
